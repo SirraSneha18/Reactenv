@@ -21,10 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Patch file system and build the React app
-        run: |
-          node patchFs.js  # Ensure this script is present and correctly configured
-          npm run build
+      - name: Build the React app
+        run: npm run build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -61,4 +59,4 @@ jobs:
         with:
           app-name: 'Reactenv18'
           slot-name: 'Production'
-          package: ./build  # Ensure this matches the path used in the build step
+          package: './build'  # Ensure this matches the path used in the build step
