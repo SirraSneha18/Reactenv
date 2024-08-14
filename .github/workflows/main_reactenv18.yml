@@ -29,10 +29,9 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: node-app
-          path: build  # Ensure only the build directory is uploaded
+          name: react-app-build  # Name of the artifact
+          path: build  # Path to the build directory
           retention-days: 1
-          max-concurrency: 10  # Limit the concurrency to prevent EMFILE errors
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,7 +46,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: node-app
+          name: react-app-build
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -62,4 +61,4 @@ jobs:
         with:
           app-name: 'Reactenv18'
           slot-name: 'Production'
-          package: ./build  # Deploy only the build directory
+          package: ./build  # Ensure this matches the path used in the build step
